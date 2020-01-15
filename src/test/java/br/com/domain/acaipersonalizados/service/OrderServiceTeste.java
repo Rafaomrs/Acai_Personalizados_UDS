@@ -32,4 +32,10 @@ public class OrderServiceTeste {
 		assertNotNull(order);
 		orderRepository.deleteAll();
 	}
+	@Test
+	public void deve_deletar_um_pedido_por_id() {
+		Order pedidoCriado = orderService.createOrder("300ml", "Morango");
+		Long pedidoId = pedidoCriado.getId();
+		orderService.deleteById(pedidoId);
+	}
 }
