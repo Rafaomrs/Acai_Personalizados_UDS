@@ -1,4 +1,4 @@
-package br.com.domain.acaipersonalizados.Service;
+package br.com.domain.acaipersonalizados.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

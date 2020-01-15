@@ -58,4 +58,10 @@ public class Order {
 	public Time getPreparationTime() {
 		return preparationTime;
 	}
+	public void setSize(String size) {
+		this.size = size;
+	}
+	public void setFlavor(String flavor) {
+		this.flavor = flavor;
+	}
 }
