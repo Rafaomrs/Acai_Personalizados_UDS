@@ -1,22 +1,31 @@
 package br.com.domain.acaipersonalizados.validationEnum;
 
-
-
-public enum EnumTemp {
-	SMALL("300ml", "5min", 10.00), 
-	MEDIUM("500ml", "7min", 13.00), 
-	LARGE("700ml", "10min", 15.00);
-		
-	private EnumTemp value;
-
-	
-	EnumTemp(String size, String timer, Double price) {
-		
-	}
-	public EnumTemp getValue() {
-		return this.value;
-	}
-		
-}
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//
+//
+//public enum EnumTemp {
+//	SMALL("300ml"), 
+//	MEDIUM("500ml"), 
+//	LARGE("700ml");
+//		
+//	private String value;
+//	private String time;
+//
+//	
+//	EnumTemp(String size, String timer, String price) {
+//		
+//	}
+//	public List<String> getValue() {
+//		List<String> value = new ArrayList<String>();
+//		value.add(SMALL.toString());
+//		value.add(MEDIUM.toString());
+//		value.add(LARGE.toString());
+//		return value;
+//	}
+//	
+//		
+//}
 	
 

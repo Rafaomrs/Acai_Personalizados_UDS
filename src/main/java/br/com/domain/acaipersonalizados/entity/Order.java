@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 
 
+
 @Entity
 @Table(name = "request")
 public class Order{
@@ -31,6 +32,7 @@ public class Order{
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private Client client;
+	
 	
 
 	public Order(String size, String flavor, String timer, Double price) {

@@ -57,5 +57,6 @@ public class OrderServiceTeste {
 		Long idOrder = order.getId();
 		orderService.findOrderById(idOrder);
 	}
+
 }
 

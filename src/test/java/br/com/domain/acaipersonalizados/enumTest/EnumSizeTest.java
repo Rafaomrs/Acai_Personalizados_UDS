@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.domain.acaipersonalizados.validationEnum.EnumSize;
-import br.com.domain.acaipersonalizados.validationEnum.EnumTemp;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
