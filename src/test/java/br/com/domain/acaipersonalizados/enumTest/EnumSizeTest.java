@@ -1,4 +1,4 @@
-package br.com.domain.acaipersonalizados.enumSIze;
+package br.com.domain.acaipersonalizados.enumTest;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.domain.acaipersonalizados.validationEnum.EnumSize;
+import br.com.domain.acaipersonalizados.validationEnum.EnumTemp;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,4 +29,9 @@ public class EnumSizeTest {
 		EnumSize tamanho = EnumSize.LARGE;
 		Assert.assertEquals(tamanho.getValue(), "700ml");
 	}
+//	@Test
+//	public void temp() {
+//		EnumTemp temp = EnumTemp.SMALL;
+//		Assert.assertArrayEquals(temp);
+//	}
 }

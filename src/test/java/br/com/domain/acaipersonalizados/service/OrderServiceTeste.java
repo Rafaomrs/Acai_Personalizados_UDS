@@ -12,30 +12,50 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.domain.acaipersonalizados.entity.Order;
-import br.com.domain.acaipersonalizados.repository.OrderRepository;
+import br.com.domain.acaipersonalizados.validationEnum.EnumFlavor;
+import br.com.domain.acaipersonalizados.validationEnum.EnumPrice;
+import br.com.domain.acaipersonalizados.validationEnum.EnumSize;
+import br.com.domain.acaipersonalizados.validationEnum.EnumTimer;
+
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OrderServiceTeste {
 	
 	@Autowired
-	private OrderRepository orderRepository;
-	@Autowired
 	private OrderService orderService;
 	
+
 	
 	@Test
 	public void deve_criar_um_pedido() {
-		String size = "300ml";
-		String flavor = "Morango";
-		Order order = orderService.createOrder(size, flavor);
+		Order order = orderService.createOrder(
+				EnumSize.SMALL.getValue(),
+				EnumFlavor.FLAVOR1.getValue(),
+				EnumTimer.SMALL.getValue(),
+				EnumPrice.SMALL.getValue());
 		assertNotNull(order);
-		orderRepository.deleteAll();
 	}
 	@Test
 	public void deve_deletar_um_pedido_por_id() {
-		Order pedidoCriado = orderService.createOrder("300ml", "Morango");
-		Long pedidoId = pedidoCriado.getId();
+		Order order = orderService.createOrder(
+				EnumSize.SMALL.getValue(),
+				EnumFlavor.FLAVOR1.getValue(),
+				EnumTimer.SMALL.getValue(),
+				EnumPrice.SMALL.getValue());
+		Long pedidoId = order.getId();
 		orderService.deleteById(pedidoId);
 	}
+	@Test
+	public void deve_encontrar_um_pedido_por_id() {
+		Order order = orderService.createOrder(
+				EnumSize.SMALL.getValue(),
+				EnumFlavor.FLAVOR1.getValue(),
+				EnumTimer.SMALL.getValue(),
+				EnumPrice.SMALL.getValue());
+		Long idOrder = order.getId();
+		orderService.findOrderById(idOrder);
+	}
 }
+

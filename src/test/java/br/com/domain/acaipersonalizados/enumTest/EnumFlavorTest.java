@@ -1,4 +1,4 @@
-package br.com.domain.acaipersonalizados.enumSIze;
+package br.com.domain.acaipersonalizados.enumTest;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
