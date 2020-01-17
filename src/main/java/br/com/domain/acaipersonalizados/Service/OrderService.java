@@ -1,12 +1,13 @@
 package br.com.domain.acaipersonalizados.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.domain.acaipersonalizados.entity.Order;
+import br.com.domain.acaipersonalizados.datasource.model.Order;
 import br.com.domain.acaipersonalizados.repository.OrderRepository;
 
 
@@ -22,18 +23,16 @@ public class OrderService {
 	public void deleteAll() {
 		orderRepository.deleteAll();
 	}
-	public Order createOrder(String size, String flavor, String timer, Double price) {
-		Order order = new Order();
-		order.setSize(size);
-		order.setFlavor(flavor);
-		order.setTimer(timer);
-		order.setPrice(price);
-		return orderRepository.save(order);
+	public Order createOrder(Order order) {
+		return orderRepository.saveAndFlush(order);
 	}
 	public Optional<Order> findOrderById(Long id) {
 		return orderRepository.findById(id);
 	}
 	
 
-	
+	public List<Order> findAllOrder(){
+		List<Order> listOrder = orderRepository.findAll();
+		return listOrder;
+	}
 }

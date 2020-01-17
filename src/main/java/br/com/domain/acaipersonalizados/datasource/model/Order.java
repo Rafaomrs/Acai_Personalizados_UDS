@@ -1,4 +1,4 @@
-package br.com.domain.acaipersonalizados.entity;
+package br.com.domain.acaipersonalizados.datasource.model;
 
 
 
