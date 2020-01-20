@@ -12,11 +12,11 @@ public class OrderResource {
 	private String price;
 	@JsonProperty("acai_prepare_timer")
 	private String timer;
-	
-	
+	@JsonProperty("acai_personalizer")
+	private String personalize;
 	
 
-	public OrderResource(String size, String flavor, String price, String timer) {
+	public OrderResource(String size, String flavor, String price, String timer, String personalize) {
 		this.size = size;
 		this.flavor = flavor;
 		this.price = price;
@@ -54,12 +54,19 @@ public class OrderResource {
 	public void setFlavor(String flavor) {
 		this.flavor = flavor;
 	}
+	public String getPersonalize() {
+		return personalize;
+	}
+
+	public void setPersonalize(String personalize) {
+		this.personalize = personalize;
+	}
 
 	@Override
 	public String toString() {
 		return "OrderResource [size=" + size + ", flavor=" 
 				+ flavor + ", price=" + price + ", timer=" 
-				+ timer + "]";
+				+ timer + personalize + "personalize" + "]";
 	}
 	
 }

@@ -1,19 +1,15 @@
 package br.com.domain.acaipersonalizados.service;
 
-
 import java.util.List;
 import java.util.Optional;
-
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import br.com.domain.acaipersonalizados.datasource.model.Order;
 import br.com.domain.acaipersonalizados.exception.OrderNotFoundException;
 import br.com.domain.acaipersonalizados.exception.OrderResourceException;
 import br.com.domain.acaipersonalizados.repository.OrderRepository;
 import br.com.domain.acaipersonalizados.resource.model.OrderResource;
-
 
 @Service
 public class OrderService {
@@ -27,7 +23,6 @@ public class OrderService {
 	@Autowired
 	private OrderConversor serviceConversor;
 	
-
 	public void createOrder(OrderResource orderResource) {
 
 		try {
@@ -40,9 +35,6 @@ public class OrderService {
 		
 	}
 	
-	public void personalizeOrder(OrderResource orderResource) {
-		
-	}
 	public Order findOrderById(Long id) throws OrderNotFoundException {
 		Optional<Order> optionalOrder = getOptional(id);
 		
@@ -67,6 +59,11 @@ public class OrderService {
 		return listOrder;
 	}
 	
+	public void personalizeOrderById(Long id, OrderResource personalizeOrder) throws OrderNotFoundException{
+		Order order = findOrderById(id);
+		order.setPersonalize(personalizeOrder.getPersonalize());
+		orderRepository.save(order);
+	}
 	
 	public void deleteById(Long id) throws OrderNotFoundException {
 		

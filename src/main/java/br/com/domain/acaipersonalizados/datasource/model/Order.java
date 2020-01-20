@@ -1,21 +1,14 @@
 package br.com.domain.acaipersonalizados.datasource.model;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-
-
 @Entity
-@Table(name = "request")
+@Table(name = "pedido")
 public class Order{
 	
 	@Id
@@ -29,17 +22,16 @@ public class Order{
 	private Double price;
 	@Column(name = "timer")
 	private String timer;
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+	@Column(name = "personalize")
+	private String personalize;
 	
 	
-
-	public Order(String size, String flavor, String timer, Double price) {
+	public Order(String size, String flavor, String timer, Double price, String personalize) {
 		this.size = size;
 		this.flavor = flavor;
 		this.timer = timer;
 		this.price = price;
+		this.personalize = personalize;
 	}
 	public Order() {
 		
@@ -74,11 +66,11 @@ public class Order{
 	public void setTimer(String timer) {
 		this.timer = timer;
 	}
-	public Client getClient() {
-		return client;
+	public String getPersonalize() {
+		return personalize;
 	}
-	public void setClient(Client client) {
-		this.client = client;
+	public void setPersonalize(String personalize) {
+		this.personalize = personalize;
 	}
 	
 }

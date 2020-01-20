@@ -8,6 +8,7 @@ import br.com.domain.acaipersonalizados.resource.model.OrderResource;
 
 @Component
 public class OrderConversor {
+	
 	public Order conversor(OrderResource orderResource) throws OrderResourceException {
 		try {
 			Order order = new Order();
@@ -18,14 +19,15 @@ public class OrderConversor {
 			order.setSize(orderResource.getSize());
 			order.setFlavor(orderResource.getFlavor());
 			order.setTimer(orderResource.getTimer());
+			order.setPersonalize(orderResource.getPersonalize());
 			return order;
 			
 		} catch (Exception e) {
-			throw new OrderResourceException("Falha ao converter o resource para entidade,"
+			throw new OrderResourceException(
+					"Falha ao converter o resource para entidade,"
 					+ "resource: " + orderResource);
 		}
 	}
-	
 	
 	private Double checkPrice(String price) {
 		return Double.parseDouble(price);
