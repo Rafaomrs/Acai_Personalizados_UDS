@@ -1,0 +1,18 @@
+version: '3.5'
+
+services:
+  acai-postgres:
+    hostname: "acai-postgres-java"
+    container_name: acai_postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: acai
+      POSTGRES_PASSWORD: acai
+      POSTGRES_DB: acai
+      PGDATA: /data/postgres
+    volumes:
+      - ./database/postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
