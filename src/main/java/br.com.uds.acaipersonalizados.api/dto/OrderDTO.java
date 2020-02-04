@@ -2,19 +2,18 @@ package br.com.uds.acaipersonalizados.api.dto;
 
 import br.com.uds.acaipersonalizados.api.entity.Order;
 import br.com.uds.acaipersonalizados.api.exception.OrderResourceException;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
+@JsonInclude
 public class OrderDTO {
     @JsonProperty("acaiSize")
     private String size;
@@ -27,52 +26,21 @@ public class OrderDTO {
     @JsonProperty("acai_personalizer")
     private String personalize;
 
-    public Order conversor(OrderDTO orderResource) throws OrderResourceException {
+    public static OrderDTO from(Order order) throws OrderResourceException {
         try {
-
-            final Order order = Order
+            return OrderDTO
                     .builder()
-                    .flavor(orderResource.getFlavor())
-                    .size(orderResource.getSize())
-                    .price(orderResource.getPrice())
-                    .personalize(orderResource.getPersonalize())
+                    .flavor(order.getFlavor())
+                    .size(order.getSize())
+                    .price(order.getPrice())
+                    .personalize(order.getPersonalize())
+                    .timer(order.getTimer())
                     .build();
-
-            return order;
-
         } catch (Exception e) {
             throw new OrderResourceException(
                     "Falha ao converter o resource para entidade,"
-                            + "resource: " + orderResource);
+                            + "resource: " + order);
         }
     }
-    public OrderDTO conversor(Order orderResource) throws OrderResourceException {
-        try {
-
-            final OrderDTO orderDTO = OrderDTO
-                    .builder()
-                    .flavor(orderResource.getFlavor())
-                    .size(orderResource.getSize())
-                    .price(orderResource.getPrice())
-                    .personalize(orderResource.getPersonalize())
-                    .build();
-
-            return orderDTO;
-
-        } catch (Exception e) {
-            throw new OrderResourceException(
-                    "Falha ao converter o resource para entidade,"
-                            + "resource: " + orderResource);
-        }
-    }
-
-    private BigDecimal checkPrice(String price) {
-        return BigDecimal.valueOf(Double.parseDouble(price));
-    }
-    private LocalDateTime checkDate(String date){
-        return LocalDateTime.parse(date);
-    }
-
-
 
 }

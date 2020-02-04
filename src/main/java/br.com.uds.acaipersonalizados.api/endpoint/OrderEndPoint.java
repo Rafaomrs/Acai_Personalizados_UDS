@@ -1,9 +1,11 @@
 package br.com.uds.acaipersonalizados.api.endpoint;
 
-import br.com.domain.acaipersonalizados.exception.OrderNotFoundException;
+
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import br.com.uds.acaipersonalizados.api.entity.Order;
+import br.com.uds.acaipersonalizados.api.exception.OrderNotFoundException;
 import br.com.uds.acaipersonalizados.api.service.OrderService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/acai-personalizados/order")
+@AllArgsConstructor
 public class OrderEndPoint {
 	
 	@Autowired
