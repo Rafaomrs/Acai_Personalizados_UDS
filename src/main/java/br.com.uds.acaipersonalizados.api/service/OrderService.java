@@ -2,8 +2,6 @@ package br.com.uds.acaipersonalizados.api.service;
 
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import br.com.uds.acaipersonalizados.api.entity.Order;
-import br.com.uds.acaipersonalizados.api.exception.OrderNotFoundException;
-import br.com.uds.acaipersonalizados.api.exception.OrderResourceException;
 import br.com.uds.acaipersonalizados.api.repository.OrderJpaRepository;
 import lombok.AllArgsConstructor;
 import org.jboss.logging.Logger;
@@ -19,53 +17,36 @@ public class OrderService {
             .getLogger(OrderService.class);
     private final OrderJpaRepository orderRepository;
 
-    public void createOrder(OrderDTO orderResource) {
-        try {
-            orderRepository.saveAndFlush(Order.of(orderResource));
-        } catch (OrderResourceException e) {
-            LOG.error("Erro ao salvar o pedido: " + e.getMessage(), e);
+    public Order createOrder(OrderDTO orderResource) {
+        verificaSeFoiDefinidoTamanho(orderResource);
+        final Order order = Order.of(orderResource);
+        return orderRepository.saveAndFlush(order);
+    }
+
+    private void verificaSeFoiDefinidoTamanho(OrderDTO orderResource) {
+        final boolean isUmPedidoComTamanhoValido = orderRepository.existsBySize(orderResource.getSize());
+        if (!isUmPedidoComTamanhoValido) {
+            throw new IllegalArgumentException("Dados do pedido estão incompletos.");
         }
     }
 
-    public Order findOrderById(Long id) throws OrderNotFoundException {
-        Optional<Order> optionalOrder = getOptional(id);
-
-        Order order = null;
-        if (!optionalOrder.isPresent()) {
-            throw new OrderNotFoundException(
-                    "Pedido nao encontrado atraves do ID: " + id);
-        } else {
-            order = optionalOrder.get();
-        }
-        return order;
+    public OrderDTO retornaPorId(Long id) {
+        final Optional<Order> orderEncontrado = orderRepository.findOrderById(id);
+        final OrderDTO orderDTO = orderEncontrado.map(order -> OrderDTO.from(order))
+                .orElseThrow(() -> new RuntimeException("Ordem não encontrada"));
+        return orderDTO;
     }
 
-    public List<Order> findAllOrder() {
-        List<Order> listOrder = orderRepository.findAll();
-        return listOrder;
+    public boolean deleteById(Long id) {
+        this.retornaPorId(id);
+        orderRepository.deleteById(id);
+        return true;
     }
 
-    public void deleteById(Long id) throws OrderNotFoundException {
-
-        Optional<Order> optionalOrder = getOptional(id);
-        if (!optionalOrder.isPresent()) {
-            throw new OrderNotFoundException(
-                    "Order nao encontrado atraves do ID: " + id);
-        } else {
-            orderRepository.delete(optionalOrder.get());
-        }
-
-    }
-
-    public void personalizeOrderById(Long id, OrderDTO personalizeOrder) throws OrderNotFoundException {
-        Order order = findOrderById(id);
-        order.setPersonalize(personalizeOrder.getPersonalize());
-        orderRepository.save(order);
-    }
-
-    private Optional<Order> getOptional(Long id) {
-        Optional<Order> optionalOrder = orderRepository
-                .findById(id);
-        return optionalOrder;
+    public OrderDTO personalizeOrder(Long id, String personalize)  {
+        final OrderDTO orderDTO = retornaPorId(id);
+        final Order order = Order.of(orderDTO);
+        order.setPersonalize(personalize);
+        return OrderDTO.from(orderRepository.save(order));
     }
 }

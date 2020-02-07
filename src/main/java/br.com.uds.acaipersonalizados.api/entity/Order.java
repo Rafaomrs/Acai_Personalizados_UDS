@@ -1,8 +1,8 @@
 package br.com.uds.acaipersonalizados.api.entity;
 
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
-import br.com.uds.acaipersonalizados.api.exception.OrderResourceException;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,13 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @Table(name = "pedido")
+@EqualsAndHashCode
 public class Order {
 
     @Id
@@ -29,19 +29,21 @@ public class Order {
     @Column(name = "flavor")
     private String flavor;
     @Column(name = "price")
-    private BigDecimal price;
+    private Double price;
     @Column(name = "timer")
     private LocalDateTime timer;
     @Column(name = "personalize")
     private String personalize;
 
     @Builder
-    public Order(String size,
+    public Order(Long id,
+                 String size,
                  String flavor,
                  LocalDateTime timer,
-                 BigDecimal price,
+                 Double price,
                  String personalize
     ) {
+        this.id = id;
         this.size = size;
         this.flavor = flavor;
         this.timer = timer;
@@ -49,20 +51,15 @@ public class Order {
         this.personalize = personalize;
     }
 
-    public static Order of(OrderDTO orderDTO) throws OrderResourceException {
-        try {
-            return Order.builder()
-                    .flavor(orderDTO.getFlavor())
-                    .timer(orderDTO.getTimer())
-                    .personalize(orderDTO.getPersonalize())
-                    .price(orderDTO.getPrice())
-                    .size(orderDTO.getSize())
-                    .build();
-        } catch (Exception e) {
-            throw new OrderResourceException(
-                    "Falha ao converter o resource para entidade,"
-                            + "resource: " + orderDTO);
-        }
+    public static Order of(OrderDTO orderDTO) {
+        return Order
+                .builder()
+                .flavor(orderDTO.getFlavor())
+                .timer(orderDTO.getTimer())
+                .personalize(orderDTO.getPersonalize())
+                .price(orderDTO.getPrice())
+                .size(orderDTO.getSize())
+                .build();
     }
 
 
@@ -78,7 +75,7 @@ public class Order {
         this.flavor = flavor;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
