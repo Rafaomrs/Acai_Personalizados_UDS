@@ -1,4 +1,4 @@
-package br.com.uds.acaipersonalizados.api.repository;
+package br.com.uds.acaipersonalizados.api.repository.impl;
 
 import br.com.uds.acaipersonalizados.api.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

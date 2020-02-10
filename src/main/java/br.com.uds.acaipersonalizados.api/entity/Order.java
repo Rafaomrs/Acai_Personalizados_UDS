@@ -26,7 +26,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "size")
+    @Column(name = "size", nullable = false)
     private String size;
     @Column(name = "flavor")
     private String flavor;

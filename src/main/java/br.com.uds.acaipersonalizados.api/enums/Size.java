@@ -1,4 +1,4 @@
-package br.com.uds.acaipersonalizados.api.br.com.uds.acaipersonalizados.api.enums;
+package br.com.uds.acaipersonalizados.api.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

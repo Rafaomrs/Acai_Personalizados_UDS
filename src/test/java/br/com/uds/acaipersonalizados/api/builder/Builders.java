@@ -1,8 +1,8 @@
 package br.com.uds.acaipersonalizados.api.builder;
 
-import br.com.uds.acaipersonalizados.api.br.com.uds.acaipersonalizados.api.enums.Size;
 import br.com.uds.acaipersonalizados.api.dto.CriarPedidoAcaiDTO;
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
+import br.com.uds.acaipersonalizados.api.entity.Order;
 
 public class Builders {
 
@@ -41,6 +41,33 @@ public class Builders {
                 .size("Small")
                 .flavor("Morango")
                 .price(10.0)
+                .build();
+    } public static Order builder(){
+        return Order
+                .builder()
+                .id(1L)
+                .personalize("Pacoca")
+                .size("Small")
+                .flavor("Morango")
+                .price(10.0)
+                .build();
+    }public static Order builderDiferente(){
+        return Order
+                .builder()
+                .id(2L)
+                .personalize("Granola")
+                .size("Large")
+                .flavor("Chocolate")
+                .price(15.0)
+                .build();
+    }
+    public static Order builderSemTamanho(){
+        return Order
+                .builder()
+                .id(2L)
+                .personalize("Granola")
+                .flavor("Chocolate")
+                .price(15.0)
                 .build();
     }
 }
