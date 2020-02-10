@@ -16,15 +16,15 @@ public class OrderDTO {
 
     @JsonProperty("id")
     private Long id;
-    @JsonProperty("acaiSize")
+    @JsonProperty("size")
     private String size;
-    @JsonProperty("acai_flavor")
+    @JsonProperty("flavor")
     private String flavor;
-    @JsonProperty("acai_price")
+    @JsonProperty("price")
     private Double price;
-    @JsonProperty("acai_prepare_timer")
+    @JsonProperty("timer")
     private LocalDateTime timer;
-    @JsonProperty("acai_personalizer")
+    @JsonProperty("personalize")
     private String personalize;
 
     public static OrderDTO from(Order order) {
@@ -37,9 +37,5 @@ public class OrderDTO {
                 .personalize(order.getPersonalize())
                 .timer(order.getTimer())
                 .build();
-    }
-
-    public void setPersonalize(String personalize) {
-        this.personalize = personalize;
     }
 }

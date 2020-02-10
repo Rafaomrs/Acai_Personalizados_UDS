@@ -1,5 +1,7 @@
 package br.com.uds.acaipersonalizados.api.entity;
 
+import br.com.uds.acaipersonalizados.api.dto.AlterarPedidoDeAcaiDTO;
+import br.com.uds.acaipersonalizados.api.dto.CriarPedidoAcaiDTO;
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -54,6 +56,7 @@ public class Order {
     public static Order of(OrderDTO orderDTO) {
         return Order
                 .builder()
+                .id(orderDTO.getId())
                 .flavor(orderDTO.getFlavor())
                 .timer(orderDTO.getTimer())
                 .personalize(orderDTO.getPersonalize())
@@ -61,30 +64,19 @@ public class Order {
                 .size(orderDTO.getSize())
                 .build();
     }
-
-
-    public void setId(Long id) {
-        this.id = id;
+    public static Order of(CriarPedidoAcaiDTO criarPedidoAcaiDTO) {
+        return Order
+                .builder()
+                .flavor(criarPedidoAcaiDTO.getFlavor())
+                .timer(criarPedidoAcaiDTO.getTimer())
+                .personalize(criarPedidoAcaiDTO.getPersonalize())
+                .price(criarPedidoAcaiDTO.getPrice())
+                .size(criarPedidoAcaiDTO.getSize())
+                .build();
     }
 
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public void setFlavor(String flavor) {
-        this.flavor = flavor;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public void setTimer(LocalDateTime timer) {
-        this.timer = timer;
-    }
-
-    public void setPersonalize(String personalize) {
-        this.personalize = personalize;
+    public void alterar(AlterarPedidoDeAcaiDTO alterarPedidoDeAcaiDTO) {
+        this.personalize = alterarPedidoDeAcaiDTO.getPersonalize();
     }
 
 }

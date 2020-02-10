@@ -1,11 +1,14 @@
 package br.com.uds.acaipersonalizados.api.endpoint;
 
 
+import br.com.uds.acaipersonalizados.api.dto.AlterarPedidoDeAcaiDTO;
+import br.com.uds.acaipersonalizados.api.dto.CriarPedidoAcaiDTO;
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import br.com.uds.acaipersonalizados.api.entity.Order;
 import br.com.uds.acaipersonalizados.api.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -31,8 +36,9 @@ public class OrderEndPoint {
     }
 
     @PostMapping
-    public Order placeOrder(@RequestBody OrderDTO order) {
-        return orderService.createOrder(order);
+    public ResponseEntity placeOrder(@Valid  @RequestBody CriarPedidoAcaiDTO order) {
+        final Order test = orderService.createOrder(order);
+        return ResponseEntity.ok(test);
     }
 
     @DeleteMapping(path = "{id}")
@@ -42,9 +48,10 @@ public class OrderEndPoint {
     }
 
     @PutMapping(path = "{id}")
-    public void personalizeOrder(
+    public ResponseEntity personalizeOrder(
             @PathVariable Long id,
-            @RequestBody String personalizeOrder) {
-        orderService.personalizeOrder(id, personalizeOrder);
+            @RequestBody AlterarPedidoDeAcaiDTO alterarPedidoDeAcaiDTO) {
+        final OrderDTO acaiAlterado = orderService.personalizeOrder(id, alterarPedidoDeAcaiDTO);
+        return ResponseEntity.noContent().build();
     }
 }
