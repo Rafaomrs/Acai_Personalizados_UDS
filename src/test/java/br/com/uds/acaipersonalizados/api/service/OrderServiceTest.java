@@ -8,6 +8,7 @@ import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import br.com.uds.acaipersonalizados.api.entity.Order;
 import br.com.uds.acaipersonalizados.api.exception.OrderNotFoundException;
 import br.com.uds.acaipersonalizados.api.repository.OrderJpaRepository;
+import br.com.uds.acaipersonalizados.api.repository.OrderRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,7 +38,7 @@ public class OrderServiceTest extends AbstractBaseTest {
     public ExpectedException exception = ExpectedException.none();
     private OrderService orderService;
     @Mock
-    private OrderJpaRepository orderRepositoryMock;
+    private OrderRepository orderRepositoryMock;
 
     @Before
     public void setup() {
@@ -51,7 +52,7 @@ public class OrderServiceTest extends AbstractBaseTest {
 
         final Order order = Order.of(criarPedidoAcaiDTO);
 
-        when(orderRepositoryMock.saveAndFlush(order))
+        when(orderRepositoryMock.saveOrder(order))
                 .thenReturn(Order.of(criarPedidoAcaiDTO));
 
         final Order result = orderService.createOrder(criarPedidoAcaiDTO);
@@ -62,7 +63,7 @@ public class OrderServiceTest extends AbstractBaseTest {
         assertThat(result.getPrice(), is(criarPedidoAcaiDTO.getPrice()));
 
 
-        verify(orderRepositoryMock).saveAndFlush(order);
+        verify(orderRepositoryMock).saveOrder(order);
 
     }
 
@@ -81,9 +82,8 @@ public class OrderServiceTest extends AbstractBaseTest {
     @Test
     public void deveEncontrarPedidoById() {
         final Order order = Order.of(Builders.buildCriarPedidoAcaiDTO());
-        final Optional<Order> optionalOrder = Optional.of(order);
 
-        when(orderRepositoryMock.findOrderById(1L)).thenReturn(optionalOrder);
+        when(orderRepositoryMock.retrieveOrderById(1L)).thenReturn(order);
 
         final OrderDTO result = orderService.retornaPorId(1L);
 
@@ -93,35 +93,31 @@ public class OrderServiceTest extends AbstractBaseTest {
         assertThat(result.getPersonalize(), is(order.getPersonalize()));
         assertThat(result.getSize(), is(order.getSize()));
 
-        verify(orderRepositoryMock).findOrderById(eq(1L));
+        verify(orderRepositoryMock).retrieveOrderById(eq(1L));
     }
 
     @Test
     public void deveDeletarPedidoById() throws OrderNotFoundException {
         final Order order = Order.of(Builders.buildCriarPedidoAcaiDTO());
-        final Optional<Order> optionalOrder = Optional.of(order);
 
-        when(orderRepositoryMock.findOrderById(1L)).thenReturn(optionalOrder);
-        doNothing().when(orderRepositoryMock).deleteById(1L);
+        when(orderRepositoryMock.deleteOrderById(1L)).thenReturn(true);
 
         final boolean result = orderService.deleteById(1L);
 
         assertTrue(result);
 
-        verify(orderRepositoryMock).findOrderById(1L);
-        verify(orderRepositoryMock).deleteById(1L);
+        verify(orderRepositoryMock).deleteOrderById(1L);
     }
 
     @Test
     public void deveAdicionarOAtributoPersonalize(){
         final OrderDTO orderWithoutPersonalize = Builders.buildOrderWithoutPersonalize();
         final OrderDTO orderComPersonalize = Builders.buildOrderWithPersonalize();
-        final Optional<Order> optionalOrder = Optional.of(Order.of(orderWithoutPersonalize));
 
-        when(orderRepositoryMock.findOrderById(orderWithoutPersonalize.getId())).thenReturn(optionalOrder);
+        when(orderRepositoryMock.retrieveOrderById(orderWithoutPersonalize.getId())).thenReturn(Order.of(orderWithoutPersonalize));
         final Order order = Order.of(orderWithoutPersonalize);
 
-        when(orderRepositoryMock.save(any(Order.class)))
+        when(orderRepositoryMock.saveOrder(any(Order.class)))
                 .thenReturn(Order.of(orderComPersonalize));
 
 
@@ -140,8 +136,8 @@ public class OrderServiceTest extends AbstractBaseTest {
 
         final ArgumentCaptor<Order> argumentCaptor = ArgumentCaptor.forClass(Order.class);
 
-        verify(orderRepositoryMock).save(argumentCaptor.capture());
-        verify(orderRepositoryMock).findOrderById(orderWithoutPersonalize.getId());
+        verify(orderRepositoryMock).saveOrder(argumentCaptor.capture());
+        verify(orderRepositoryMock).retrieveOrderById(orderWithoutPersonalize.getId());
 
         final Order orderArgumentValue = argumentCaptor.getValue();
 
