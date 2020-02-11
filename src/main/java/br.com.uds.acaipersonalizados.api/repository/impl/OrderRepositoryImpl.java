@@ -1,10 +1,9 @@
-package br.com.uds.acaipersonalizados.api.repository.impl.impl;
+package br.com.uds.acaipersonalizados.api.repository.impl;
 
 import br.com.uds.acaipersonalizados.api.entity.Order;
-import br.com.uds.acaipersonalizados.api.enums.Size;
 import br.com.uds.acaipersonalizados.api.exception.OrderNotFoundException;
-import br.com.uds.acaipersonalizados.api.repository.impl.OrderJpaRepository;
-import br.com.uds.acaipersonalizados.api.repository.impl.OrderRepository;
+import br.com.uds.acaipersonalizados.api.repository.OrderRepository;
+import br.com.uds.acaipersonalizados.api.repository.OrderJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 

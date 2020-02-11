@@ -5,7 +5,7 @@ import br.com.uds.acaipersonalizados.api.dto.AlterarPedidoDeAcaiDTO;
 import br.com.uds.acaipersonalizados.api.dto.CriarPedidoAcaiDTO;
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import br.com.uds.acaipersonalizados.api.entity.Order;
-import br.com.uds.acaipersonalizados.api.repository.impl.OrderRepository;
+import br.com.uds.acaipersonalizados.api.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Service;

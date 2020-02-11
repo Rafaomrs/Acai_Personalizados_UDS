@@ -1,10 +1,10 @@
-package br.com.uds.acaipersonalizados.api.repository.impl;
+package br.com.uds.acaipersonalizados.api.repository;
 
 import br.com.uds.acaipersonalizados.api.AbstractBaseTest;
 import br.com.uds.acaipersonalizados.api.builder.Builders;
 import br.com.uds.acaipersonalizados.api.entity.Order;
 import br.com.uds.acaipersonalizados.api.exception.OrderNotFoundException;
-import br.com.uds.acaipersonalizados.api.repository.impl.impl.OrderRepositoryImpl;
+import br.com.uds.acaipersonalizados.api.repository.impl.OrderRepositoryImpl;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

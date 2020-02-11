@@ -7,7 +7,7 @@ import br.com.uds.acaipersonalizados.api.dto.CriarPedidoAcaiDTO;
 import br.com.uds.acaipersonalizados.api.dto.OrderDTO;
 import br.com.uds.acaipersonalizados.api.entity.Order;
 import br.com.uds.acaipersonalizados.api.exception.OrderNotFoundException;
-import br.com.uds.acaipersonalizados.api.repository.impl.OrderRepository;
+import br.com.uds.acaipersonalizados.api.repository.OrderRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;

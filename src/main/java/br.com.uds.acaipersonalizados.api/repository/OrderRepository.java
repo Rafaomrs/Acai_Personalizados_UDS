@@ -1,4 +1,4 @@
-package br.com.uds.acaipersonalizados.api.repository.impl;
+package br.com.uds.acaipersonalizados.api.repository;
 
 import br.com.uds.acaipersonalizados.api.entity.Order;
 
